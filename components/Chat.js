@@ -1,9 +1,48 @@
 import * as React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { GiftedChat, IMessage } from "react-native-gifted-chat";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  interpolate,
+  withTiming,
+} from "react-native-reanimated";
+import { ScrollView } from "react-native";
+
+function Box() {
+  const offset = useSharedValue(0);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: offset.value * 255 }],
+    };
+  });
+
+  return (
+    <>
+      <Animated.View style={[styles.box, animatedStyles]} />
+      <Button onPress={() => (offset.value = Math.random())} title="Move" />
+    </>
+  );
+}
+import {
+  GiftedChat,
+  IMessage,
+  InputToolbar,
+  Actions,
+  MessageContainer,
+  Bubble,
+  Message,
+} from "react-native-gifted-chat";
 import { useChatGpt } from "react-native-chatgpt";
 import { Snackbar } from "react-native-paper";
-import { Dimensions, StyleSheet, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  Image,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ImagePickerComponent from "./ImagePickerComponent";
 import callGoogleVisionAsync from "./helperFunctions";
@@ -34,7 +73,7 @@ const Chat = () => {
   const conversationId = useRef("");
 
   useEffect(() => {
-    setMessages([createBotMessage("Ambitne Przywitanie :)")]);
+    setMessages([createBotMessage("Witaj, w czym mogę pomóc?")]);
   }, []);
 
   useEffect(() => {
@@ -103,18 +142,126 @@ const Chat = () => {
     setMessages((previousMessages) => GiftedChat.append(previousMessages, hmm));
   }, []);
 
+  const onSendText = useCallback((t = []) => {
+    setMessages((previousMessages) => GiftedChat.append(previousMessages, t));
+  }, []);
+
   const imageToText = (t) => {
     onSend(t);
   };
 
+  const renderBubble = (props) => {
+    console.log(props);
+    return (
+      <Bubble
+        {...props}
+        textStyle={{
+          left: {
+            color: "#cad1e8",
+            fontSize: 20,
+            lineHeight: 28,
+            fontWeight: "500",
+          },
+          right: {
+            color: "#9095a3",
+            fontSize: 20,
+            lineHeight: 28,
+            fontWeight: "500",
+          },
+        }}
+        wrapperStyle={{
+          left: {
+            backgroundColor: "#272c3b",
+            padding: 7,
+            paddingTop: 10,
+            paddingLeft: 0,
+            borderRadius: 20,
+            marginLeft: "auto",
+
+            marginRight: "auto",
+            width: "95%",
+            left: -7,
+          },
+          right: {
+            marginTop: 1,
+            backgroundColor: "#1f232e",
+            padding: 7,
+            paddingTop: 10,
+            paddingLeft: 0,
+            borderRadius: 20,
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: "85%",
+            left: -7,
+          },
+        }}
+      />
+    );
+  };
+
+  const renderInputToolbar = (props) => {
+    //Add the extra styles via containerStyle
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          // backgroundColor: "#335",
+          // position: "absolute",
+          // bottom: 20,
+          // marginLeft: "5%",
+          // marginRight: "5%",
+          // alignItems: "center",
+          // borderRadius: 10,
+          display: "none",
+        }}
+        placeholder="Siema"
+      />
+    );
+  };
+
+  ////
+  const OPTIONS = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
+  ////
+
   return (
     <View style={styles.container}>
-      <GiftedChat
+      <ImagePickerComponent
+        onSubmit={callGoogleVisionAsync}
+        imageToText={(t) => imageToText(t)}
+      />
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={100}
+        contentContainerStyle={styles.scrollContentContainer}
+      >
+        {OPTIONS.map((option) => (
+          <View key={option} style={styles.optionContainer}>
+            <Text onPress={() => ""}>{option}</Text>
+          </View>
+        ))}
+      </ScrollView>
+
+      <MessageContainer
         messages={messages}
-        onSend={onSend}
+        onSend={onSendText}
+        renderMessage={(props) => (
+          <Message
+            {...props}
+            // containerStyle={styles.messageContainer}
+            textStyle={{ display: "none" }}
+          />
+        )}
+        showAvatarForEveryMessage={true}
+        renderAvatar={() => null}
+        timeTextStyle={{
+          left: { display: "none" },
+          right: { display: "none" },
+        }}
         user={{
           _id: 1,
         }}
+        renderBubble={renderBubble}
       />
       <Snackbar
         visible={!!errorMessage}
@@ -127,10 +274,6 @@ const Chat = () => {
       >
         {errorMessage}
       </Snackbar>
-      <ImagePickerComponent
-        onSubmit={callGoogleVisionAsync}
-        imageToText={(t) => imageToText(t)}
-      />
     </View>
   );
 };
@@ -138,6 +281,9 @@ const Chat = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#1f232e",
+
+    width: "100%",
   },
   snackbar: {
     backgroundColor: "red",

@@ -1,19 +1,19 @@
-import * as React from 'react';
-import { useChatGpt } from 'react-native-chatgpt';
-import Chat from './Chat';
-import Login from './Login';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import * as React from "react";
+import { useChatGpt } from "react-native-chatgpt";
+import Chat from "./Chat";
+import Login from "./Login";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 const Navigator: React.FC = () => {
   const { status } = useChatGpt();
 
-  if (status === 'initializing') return null;
+  if (status === "initializing") return null;
 
-  if (status === 'logged-out' || status === 'getting_auth_token') {
+  if (status === "logged-out" || status === "getting_auth_token") {
     return (
       <View style={styles.container}>
         <Login />
-        {status === 'getting_auth_token' && (
+        {status === "getting_auth_token" && (
           <View style={styles.loaderContainer}>
             <ActivityIndicator size="large" color="white" />
           </View>
@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
   },
   loaderContainer: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

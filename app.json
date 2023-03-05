@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.mikomikomiko302.snack9b9d00eb573d494789598e5c9f1943a4"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a29f7ee8-69e6-48d9-a403-6872311e89bf"
+      }
     }
   }
 }
