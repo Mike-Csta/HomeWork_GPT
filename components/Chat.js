@@ -46,7 +46,8 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ImagePickerComponent from "./ImagePickerComponent";
 import callGoogleVisionAsync from "./helperFunctions";
-
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 const CHAT_GPT_THUMBNAIL_URL =
   "https://styles.redditmedia.com/t5_7hqomg/styles/communityIcon_yyc98alroh5a1.jpg?width=256&s=cb48e1046acd79d1cc52b59b34ae56b0c1a9b4b8";
 const CHAT_GPT_ID = "CHAT_GPT_ID";
@@ -225,55 +226,77 @@ const Chat = () => {
 
   return (
     <View style={styles.container}>
-      <ImagePickerComponent
-        onSubmit={callGoogleVisionAsync}
-        imageToText={(t) => imageToText(t)}
-      />
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        snapToInterval={100}
-        contentContainerStyle={styles.scrollContentContainer}
+      <View
+        style={{
+          position: "absolute",
+          zIndex: -10,
+          // backgroundColor: "yellow",
+          height: "100%",
+          width: "100%",
+        }}
       >
-        {OPTIONS.map((option) => (
-          <View key={option} style={styles.optionContainer}>
-            <Text onPress={() => ""}>{option}</Text>
-          </View>
-        ))}
-      </ScrollView>
+        <ImagePickerComponent
+          onSubmit={callGoogleVisionAsync}
+          imageToText={(t) => imageToText(t)}
+        />
+      </View>
 
-      <MessageContainer
-        messages={messages}
-        onSend={onSendText}
-        renderMessage={(props) => (
-          <Message
-            {...props}
-            // containerStyle={styles.messageContainer}
-            textStyle={{ display: "none" }}
+      <View tyle={{ position: "absolute", zIndex: 20, width: "100%" }}>
+        <ScrollView
+          style={{
+            position: "relative",
+            zIndex: 2,
+            width: "100%",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "transparent",
+              height: screenHeight,
+              width: screenWidth,
+            }}
           />
-        )}
-        showAvatarForEveryMessage={true}
-        renderAvatar={() => null}
-        timeTextStyle={{
-          left: { display: "none" },
-          right: { display: "none" },
-        }}
-        user={{
-          _id: 1,
-        }}
-        renderBubble={renderBubble}
-      />
-      <Snackbar
-        visible={!!errorMessage}
-        onDismiss={() => setErrorMessage("")}
-        style={[
-          styles.snackbar,
-          { top: -Dimensions.get("window").height + insets.top + 32 },
-        ]}
-        duration={3000}
-      >
-        {errorMessage}
-      </Snackbar>
+          {/* <View
+            style={{
+              backgroundColor: "blue",
+              height: screenHeight,
+              width: screenWidth,
+            }}
+          /> */}
+          <MessageContainer
+            messages={messages}
+            onSend={onSendText}
+            renderMessage={(props) => (
+              <Message
+                {...props}
+                // containerStyle={styles.messageContainer}
+                textStyle={{ display: "none" }}
+              />
+            )}
+            showAvatarForEveryMessage={true}
+            renderAvatar={() => null}
+            timeTextStyle={{
+              left: { display: "none" },
+              right: { display: "none" },
+            }}
+            user={{
+              _id: 1,
+            }}
+            renderBubble={renderBubble}
+          />
+          <Snackbar
+            visible={!!errorMessage}
+            onDismiss={() => setErrorMessage("")}
+            style={[
+              styles.snackbar,
+              { top: -Dimensions.get("window").height + insets.top + 32 },
+            ]}
+            duration={3000}
+          >
+            {errorMessage}
+          </Snackbar>
+        </ScrollView>
+      </View>
     </View>
   );
 };

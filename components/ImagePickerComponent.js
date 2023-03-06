@@ -1,12 +1,19 @@
 import * as ImagePicker from "expo-image-picker";
 import React, { useState, useEffect } from "react";
-import { Button, Image, View, Text, TouchableOpacity } from "react-native";
-
+import {
+  Button,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+const screenWidth = Dimensions.get("window").width;
 import { Camera, CameraType } from "expo-camera";
 import axios from "axios";
 import { AntDesign } from "@expo/vector-icons";
 import ScrollPicker from "react-native-wheel-scrollview-picker";
-
+import WheelPicker from "react-native-wheely";
 function ImagePickerComponent({ onSubmit, imageToText }) {
   const [image, setImage] = useState(null);
   const [text, setText] = useState("");
@@ -38,7 +45,7 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
       // setText(responseData.text);
     }
   };
-
+  const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
       {image ? (
@@ -46,16 +53,16 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
           style={{
             borderBottomLeftRadius: 40,
             borderBottomRightRadius: 40,
-            overflow: "hidden",
+            // overflow: "hidden",
             width: "100%",
-            height: 320,
+            height: "100%",
             backgroundColor: "red",
           }}
         >
           <Image
             source={{ uri: image }}
             style={{
-              height: 320,
+              height: "100%",
               width: "100%",
               resizeMode: "cover",
             }}
@@ -66,18 +73,37 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
           style={{
             borderBottomLeftRadius: 40,
             borderBottomRightRadius: 40,
-            overflow: "hidden",
+            // overflow: "hidden",
             width: "100%",
-            height: 320,
+            height: "100%",
             backgroundColor: "red",
           }}
         >
-          <Camera style={{ width: "100%", aspectRatio: 3 / 4 }}></Camera>
+          <Camera style={{ height: "100%", aspectRatio: 3 / 4 }}></Camera>
         </View>
       )}
-
+      {/* <WheelPicker
+        selectedIndex={selectedIndex}
+        options={["Berlin", "London", "Amsterdam"]}
+        onChange={(index) => setSelectedIndex(index)}
+        itemHeight={screenWidth / 3}
+        containerStyle={{
+          transform: "rotate(90deg)",
+          // width: 40,
+          // height: screenWidth,
+          // whiteSpace: "nowrap",
+          backgroundColor: "transparent",
+        }}
+        selectedIndicatorStyle={{ backgroundColor: "transparent" }}
+        itemTextStyle={{
+          transform: "rotate(-90deg)",
+          // width: screenWidth / 5,
+          // padding: 0,
+          whiteSpace: "nowrap",
+        }}
+      /> */}
       {/* <Text>{text}</Text> */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         title="Wykonaj Fotografię"
         onPress={takePicture}
         style={{
@@ -92,8 +118,8 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
           top: 240,
         }}
       >
-        {/* <AntDesign name="search1" size={30} color="white" /> */}
-      </TouchableOpacity>
+
+      </TouchableOpacity> */}
     </View>
   );
 }
