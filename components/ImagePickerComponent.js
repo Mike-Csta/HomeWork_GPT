@@ -28,6 +28,27 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
   }, []);
 
   const takePicture = async () => {
+    console.log("dadas");
+    if (cameraRef) {
+      const photo = await cameraRef.takePictureAsync();
+      const base64 = await FileSystem.readAsStringAsync(photo.uri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      console.log(base64);
+      let result = base64;
+
+      if (!result.cancelled) {
+        setImage(result.uri);
+        setText("...Wczytywanko...");
+        const responseData = await onSubmit(result.base64);
+        await AsyncStorage.setItem("content", responseData.text);
+        imageToText(responseData.text);
+        // setText(responseData.text);
+      }
+    }
+  };
+
+  const takePicture2 = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -35,7 +56,7 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
       quality: 1,
       base64: true,
     });
-
+    console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
       setText("...Wczytywanko...");
@@ -79,7 +100,12 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
             backgroundColor: "red",
           }}
         >
-          <Camera style={{ height: "100%", aspectRatio: 3 / 4 }}></Camera>
+          <Camera
+            ref={(ref) => {
+              cameraRef = ref;
+            }}
+            style={{ height: "100%", aspectRatio: 3 / 4 }}
+          ></Camera>
         </View>
       )}
       {/* <WheelPicker
@@ -103,13 +129,13 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
         }}
       /> */}
       {/* <Text>{text}</Text> */}
-      {/* <TouchableOpacity
+      <TouchableOpacity
         title="Wykonaj Fotografię"
-        onPress={takePicture}
+        onPress={() => takePicture()}
         style={{
           width: 70,
           height: 70,
-          backgroundColor: "#000000bc",
+          backgroundColor: "#aaa",
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 1000,
@@ -117,9 +143,7 @@ function ImagePickerComponent({ onSubmit, imageToText }) {
           position: "absolute",
           top: 240,
         }}
-      >
-
-      </TouchableOpacity> */}
+      ></TouchableOpacity>
     </View>
   );
 }

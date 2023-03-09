@@ -229,9 +229,9 @@ const Chat = () => {
       <View
         style={{
           position: "absolute",
-          zIndex: -10,
+          zIndex: 10,
           // backgroundColor: "yellow",
-          height: "100%",
+          height: "50%",
           width: "100%",
         }}
       >
@@ -241,8 +241,17 @@ const Chat = () => {
         />
       </View>
 
-      <View tyle={{ position: "absolute", zIndex: 20, width: "100%" }}>
+      <View
+        tyle={{
+          position: "absolute",
+          zIndex: 20,
+          height: 10,
+          width: "100%",
+        }}
+      >
         <ScrollView
+          snapToInterval={screenHeight}
+          decelerationRate="fast"
           style={{
             position: "relative",
             zIndex: 2,
@@ -256,34 +265,36 @@ const Chat = () => {
               width: screenWidth,
             }}
           />
-          {/* <View
+          <View
             style={{
               backgroundColor: "blue",
-              height: screenHeight,
+              borderRadius: 20,
+              height: screenHeight / 1.3,
               width: screenWidth,
             }}
-          /> */}
-          <MessageContainer
-            messages={messages}
-            onSend={onSendText}
-            renderMessage={(props) => (
-              <Message
-                {...props}
-                // containerStyle={styles.messageContainer}
-                textStyle={{ display: "none" }}
-              />
-            )}
-            showAvatarForEveryMessage={true}
-            renderAvatar={() => null}
-            timeTextStyle={{
-              left: { display: "none" },
-              right: { display: "none" },
-            }}
-            user={{
-              _id: 1,
-            }}
-            renderBubble={renderBubble}
-          />
+          >
+            <MessageContainer
+              messages={messages}
+              onSend={onSendText}
+              renderMessage={(props) => (
+                <Message
+                  {...props}
+                  // containerStyle={styles.messageContainer}
+                  textStyle={{ display: "none" }}
+                />
+              )}
+              showAvatarForEveryMessage={true}
+              renderAvatar={() => null}
+              timeTextStyle={{
+                left: { display: "none" },
+                right: { display: "none" },
+              }}
+              user={{
+                _id: 1,
+              }}
+              renderBubble={renderBubble}
+            />
+          </View>
           <Snackbar
             visible={!!errorMessage}
             onDismiss={() => setErrorMessage("")}
