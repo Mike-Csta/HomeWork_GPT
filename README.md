@@ -1,11 +1,36 @@
-# Sample Snack app
+# HomeWork GPT
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!
+Aplikacja do Rozwiązywania Zadań Domowych to mobilna aplikacja napisana w React Native, która pomaga użytkownikom w rozwiązaniu zadań domowych. Użytkownik robi zdjęcie zadania, które następnie jest analizowane za pomocą Google Cloud Vision API (OCR), a wynik jest przekazywany do chatbotu opartego na GPT, który zwraca odpowiedź.
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Download** your project and use it with [expo-cli](https://docs.expo.io/get-started/installation).
+> mega prosta aplikacja, miałem fajny pomysł ale porzuciłem ze wzgldu na mature i projekty komercyjne
 
-All projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the `<>` button.
+## Funkcje
 
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.io/c/snack).
+* Umożliwia zrobienie zdjęcia zadania domowego.
+* Analizuje zdjęcie za pomocą Google Cloud Vision API (OCR) do rozpoznawania tekstu.
+* Przekazuje rozpoznany tekst do chatbotu GPT.
+* Wyświetla odpowiedź chatbotu GPT w formie czatu.
 
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack).
+## Technologie
+
+* React Native
+* Google Cloud Vision API
+* GPT (Chatbot)
+
+> wogule to jest powalone jak to sie ze sobą komunikuje bo jak to pisałem to nie istniało jeszcze api gpt więc musiałem szukać obejścia żeby korzystać dosłownie z chatu gpt xD
+
+## Jak uruchomić
+
+Tutaj możesz opisać, jak sklonować i uruchomić projekt lokalnie.
+
+## Współpraca
+
+Opis, jak inne osoby mogą się przyczynić do rozwoju projektu.
+
+## Licencja
+
+Informacje o licencji, jeśli takowe istnieją.
+
+---
+
+Pamiętaj, że to jest tylko przykładowy szablon i możesz go dostosować do swoich potrzeb. Dobrze napisany plik README powinien być jasny i przejrzysty, aby użytkownicy mogli łatwo zrozumieć, na czym polega twój projekt i jak z niego korzystać.
