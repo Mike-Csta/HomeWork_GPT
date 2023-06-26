@@ -27,7 +27,7 @@ Aby uruchomić tę aplikację, musisz mieć zainstalowany Node.js oraz npm (Node
 
    Użyj git do sklonowania tego repozytorium na swój komputer lokalny. Otwórz terminal i wpisz następujące polecenie:
 
-  ```
+  ```bash
    git clone https://github.com/Mike-Csta/HomeWork_GPT.git
 ```
 
