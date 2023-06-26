@@ -21,16 +21,42 @@ Aplikacja do Rozwiązywania Zadań Domowych to mobilna aplikacja napisana w Reac
 
 ## Jak uruchomić
 
-Tutaj możesz opisać, jak sklonować i uruchomić projekt lokalnie.
+Aby uruchomić tę aplikację, musisz mieć zainstalowany Node.js oraz npm (Node Package Manager). Poniżej znajduje się przewodnik, jak uruchomić aplikację:
 
-## Współpraca
+1. **Sklonuj repozytorium**
 
-Opis, jak inne osoby mogą się przyczynić do rozwoju projektu.
+   Użyj git do sklonowania tego repozytorium na swój komputer lokalny. Otwórz terminal i wpisz następujące polecenie:
 
-## Licencja
+  ```
+   git clone https://github.com/Mike-Csta/HomeWork_GPT.git
+```
 
-Informacje o licencji, jeśli takowe istnieją.
+2. **Przejdź do katalogu projektu**
 
----
+   Po sklonowaniu repozytorium, użyj polecenia `cd` do przejścia do katalogu projektu:
 
-Pamiętaj, że to jest tylko przykładowy szablon i możesz go dostosować do swoich potrzeb. Dobrze napisany plik README powinien być jasny i przejrzysty, aby użytkownicy mogli łatwo zrozumieć, na czym polega twój projekt i jak z niego korzystać.
+   ```bash
+   cd nazwa_projektu
+   ```
+
+   Zmień `nazwa_projektu` na nazwę katalogu, do którego sklonowałeś projekt.
+
+3. **Zainstaluj zależności**
+
+   Teraz, kiedy jesteś w katalogu projektu, musisz zainstalować wszystkie zależności za pomocą npm. Wpisz następujące polecenie:
+
+   ```bash
+   npm install
+   ```
+
+   Może to chwilę potrwać. npm pobierze wszystkie zależności wymagane do uruchomienia twojego projektu.
+
+4. **Uruchom aplikację**
+
+   Po zainstalowaniu zależności, możesz uruchomić aplikację. Wpisz następujące polecenie:
+
+   ```bash
+   npm start
+   ```
+
+  5 **Pobierz expo go na telefon i zeskanuj kod qr**
