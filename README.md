@@ -60,4 +60,5 @@ Aby uruchomić tę aplikację, musisz mieć zainstalowany Node.js oraz npm (Node
    ```
 
   5 **Pobierz expo go na telefon i zeskanuj kod qr**
+  
   https://github.com/Mike-Csta/react-native-gpt/assets/92047998/93229938-dcba-4e52-aa7e-389884af57f9
